@@ -13,7 +13,7 @@ const Hero = () => {
           <div className="max-w-2xl mx-auto z-10 lg:pb-18 text-center lg:text-left xl:pb-20 px-3 sm:px-0">
             <div className="relative flex justify-center lg:justify-start items-center mb-10 lg:mb-28 xl:mb-24 mt-4 lg:mt-6">
               <Image
-                src="/swc_logo.png"
+                src="/client-assets/swc_logo.png"
                 alt="Wellness Logo"
                 width={250}
                 height={250}

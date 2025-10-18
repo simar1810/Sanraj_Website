@@ -27,7 +27,7 @@ const ReliablePartner = () => {
 
       {/* Left side (image) — hidden below xl */}
       <div className='w-full overflow-hidden z-10 hidden 2xl:flex 2xl:justify-center 2xl:items-end'>
-        <Image src='/fitness-expert.png' alt='fitness-expert' width={500} height={500} className='w-sm h-fit overflow-hidden' />
+        <Image src='/Fitness-expert.png' alt='fitness-expert' width={500} height={500} className='w-sm h-fit overflow-hidden' />
       </div>
 
       {/* Right content */}
