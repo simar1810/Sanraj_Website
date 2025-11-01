@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { FaInstagram } from "react-icons/fa";
 import { LuFacebook } from "react-icons/lu";
-import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,6 +13,7 @@ export default function Footer() {
     phoneNumber: "",
     email: "",
     goal: "",
+    consent: false,
   });
   const [loading, setLoading] = useState(false);
 
@@ -22,15 +23,19 @@ export default function Footer() {
   ];
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, phoneNumber, goal } = formData;
+    const { name, email, phoneNumber, goal, consent } = formData;
     if (!name || (!email && !phoneNumber)) {
       toast.error("Please fill in name and either email or phone number.");
+      return;
+    }
+    if (!consent) {
+      toast.error("Please provide your consent to proceed.");
       return;
     }
     try {
@@ -50,7 +55,7 @@ export default function Footer() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Something went wrong");
       toast.success("Thank you! Your details have been submitted.");
-      setFormData({ name: "", email: "", phoneNumber: "", goal: "" });
+      setFormData({ name: "", email: "", phoneNumber: "", goal: "", consent: false });
     } catch (err) {
       toast.error(err.message || "Failed to submit form");
     } finally {
@@ -91,6 +96,35 @@ export default function Footer() {
             </div>
           ))}
         </form>
+
+        {/* Consent Checkbox */}
+        <div className="mb-6 sm:mb-8 bg-white rounded-md px-4 py-3 sm:px-6 sm:py-4">
+          <label className="flex items-start gap-2 sm:gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              name="consent"
+              checked={formData.consent}
+              onChange={handleChange}
+              className="mt-1 sm:mt-1.5 w-4 h-4 sm:w-5 sm:h-5 accent-[#067a42] cursor-pointer flex-shrink-0"
+            />
+            <span className="text-sm sm:text-base text-[#2E2D2D] font-medium leading-relaxed">
+              I consent to receiving RCS, WhatsApp, Email or SMS from Sanraj wellness & I have reviewed and agreed to{" "}
+              <span
+                className="text-[#067a42] hover:underline font-semibold cursor-pointer"
+                onClick={() => window.open("/terms-and-conditions", "_blank")}
+              >
+                Terms & Condition
+              </span>
+              , and{" "}
+              <span
+                className="text-[#067a42] hover:underline font-semibold cursor-pointer"
+                onClick={() => window.open("/privacy-policy", "_blank")}
+              >
+                Privacy Policy
+              </span>
+            </span>
+          </label>
+        </div>
 
         <div className="flex justify-center">
           <button
