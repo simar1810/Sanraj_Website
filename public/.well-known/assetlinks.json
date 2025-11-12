@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.wellnessz.sanrajwellness",
+      "sha256_cert_fingerprints": [
+        "A0:FE:24:69:55:1F:1B:B3:5A:A4:DB:95:C7:F5:AA:69:08:BB:F1:D8:14:B2:6F:92:DD:F5:26:CC:34:76:B3:F7"
+      ]
+    }
+  }
+]
